@@ -1,0 +1,20 @@
+.cover-element--holder {
+  position: absolute;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-element--text {
+  margin-bottom: 50px;
+  color: white;
+  border-radius: 30px;
+  border: 1px solid white;
+  padding: 10px;
+}
