@@ -1,6 +1,15 @@
 'use strict';
 const debugMode = false;
 
+const flickrPhotoBaseURL = 'https://www.flickr.com/photos/';
+const flickrCatPhotosURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0a4ef01b277c0035cb36d50c8314abe5&tags=cat%2C+cats&format=json&nojsoncallback=1&auth_token=72157680008829101-d2910c943569a852&api_sig=f542e9218b7ea68d1e326e39fb4dc513'
+
+async function fetchCatImages() {
+  let response = await fetch(flickrCatPhotosURL);
+  let result = await response.json();
+  return result;
+};
+
 /**
  * Array containing royal free flickr cat images
  * @type {Array}
@@ -17,6 +26,12 @@ const cats = [
     "//c1.staticflickr.com/6/5141/5616147572_197d15f94d_z.jpg",
     "//c1.staticflickr.com/7/6092/6330704947_dd7e1b453c.jpg"
 ];
+
+const flickrCatImages = fetchCatImages()
+  .then(data => {
+    return data.photos.photo;
+  })
+  .catch(err => console.err(err));
 
 const getRandomCatImage = () => {
     return cats[Math.floor(Math.random() * (10 - 0) + 1)];
@@ -36,6 +51,11 @@ const clearImages = () => {
     image.classList.add('cat');
     let coverElementHolder = document.createElement('div');
     coverElementHolder.className = 'cover-element--holder';
+
+    if (flickrCatImages.length > 0) {
+      let randomCatImage = flickrCatImages[Math.floor(Math.random() * (flickrCatImages.length - 0) + 1)];
+      coverElementHolder.style.backgroundImage = `url(${flickrPhotoBaseURL}${randomCatImage.owner}/${randomCatImage.id})`;
+    }
     coverElementHolder.style.backgroundImage = `url(${getRandomCatImage()})`;
 
     let coverElementText = document.createElement('span');
@@ -68,7 +88,12 @@ const walkContacts = () => {
   }
 };
 
+const setup = () => {
+  fetchCatImages();
+  walkContacts();
+};
+
 /**
  * Attach base listener
  */
-document.addEventListener('DOMContentLoaded', walkContacts, false);
+document.addEventListener('DOMContentLoaded', setup, false);
