@@ -1,3 +1,7 @@
+html, body {
+  background-color: black;
+}
+
 .cover-element--holder {
   position: absolute;
   z-index: 99999;
@@ -5,16 +9,36 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: black;
+  background-color: #100050;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-size: cover;
 }
 
 .cover-element--text {
-  margin-bottom: 50px;
   color: white;
   border-radius: 30px;
   border: 1px solid white;
   padding: 10px;
+}
+
+.menu--holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  width: 100px;
+}
+
+.menu--text {
+  color: white
+}
+
+.menu--button {
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 25px;
+  margin: 5px;
 }

@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Safe WhatsApp",
-  "description": "This extension makes your WhatsApp browser app safe for work",
+  "name": "WhatsApp Veil",
+  "description": "This extension covers WhatsApp images and videos with a black background, making it safe for work.",
   "version": "0.0.2",
 
   "browser_action": {
@@ -14,7 +14,7 @@
     "matches": [
       "https://web.whatsapp.com/*"
     ],
-    "js": ["safewhatsapp.js"],
+    "js": ["whatsappveil.js"],
     "css": [ "styles.css" ],
     "run_at": "document_start"
   }]
