@@ -1,14 +1,4 @@
 'use strict';
-const debugMode = false;
-
-const flickrPhotoBaseURL = 'https://www.flickr.com/photos/';
-const flickrCatPhotosURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0a4ef01b277c0035cb36d50c8314abe5&tags=cat%2C+cats&format=json&nojsoncallback=1&auth_token=72157680008829101-d2910c943569a852&api_sig=f542e9218b7ea68d1e326e39fb4dc513'
-
-async function fetchCatImages() {
-  let response = await fetch(flickrCatPhotosURL);
-  let result = await response.json();
-  return result;
-};
 
 /**
  * Array containing royal free flickr cat images
@@ -16,7 +6,7 @@ async function fetchCatImages() {
  */
 const cats = [
     "//c1.staticflickr.com/4/3894/14818650368_9147bee007_c.jpg",
-    "//c1.staticflickr.com/9/8215/8333619957_e3b5aff6f0_z.jpg",
+    "//c1.staticflickr.com/5/4255/35248847366_a560b26d0b_n.jpg",
     "//c1.staticflickr.com/9/8065/8168159947_94b3a89a2a_z.jpg",
     "//c1.staticflickr.com/6/5512/14410052054_6296fd600f.jpg",
     "//c1.staticflickr.com/8/7073/7190755946_ea97e85765_z.jpg",
@@ -27,14 +17,8 @@ const cats = [
     "//c1.staticflickr.com/7/6092/6330704947_dd7e1b453c.jpg"
 ];
 
-const flickrCatImages = fetchCatImages()
-  .then(data => {
-    return data.photos.photo;
-  })
-  .catch(err => console.err(err));
-
 const getRandomCatImage = () => {
-    return cats[Math.floor(Math.random() * (10 - 0) + 1)];
+    return cats[Math.floor(Math.random() * (10 - 1))]; // 0 - 9
 };
 
 /**
@@ -51,11 +35,6 @@ const clearImages = () => {
     image.classList.add('cat');
     let coverElementHolder = document.createElement('div');
     coverElementHolder.className = 'cover-element--holder';
-
-    if (flickrCatImages.length > 0) {
-      let randomCatImage = flickrCatImages[Math.floor(Math.random() * (flickrCatImages.length - 0) + 1)];
-      coverElementHolder.style.backgroundImage = `url(${flickrPhotoBaseURL}${randomCatImage.owner}/${randomCatImage.id})`;
-    }
     coverElementHolder.style.backgroundImage = `url(${getRandomCatImage()})`;
 
     let coverElementText = document.createElement('span');
@@ -81,15 +60,13 @@ const walk = () => {
 
 const walkContacts = () => {
   let contactsHolder = document.querySelector('.chatlist-panel-body');
-  if (contactsHolder) {
+  if (contactsHolder)
     contactsHolder.addEventListener('click', walk, false);
-  } else {
+  else
     window.setTimeout(walkContacts, 5000);
-  }
 };
 
 const setup = () => {
-  fetchCatImages();
   walkContacts();
 };
 
@@ -97,3 +74,29 @@ const setup = () => {
  * Attach base listener
  */
 document.addEventListener('DOMContentLoaded', setup, false);
+
+
+/**
+ * TODO:
+ * Async fetch data from flickr, to show different images.
+ */
+
+// const flickrPhotoBaseURL = 'https://www.flickr.com/photos/';
+// const flickrCatPhotosURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0a4ef01b277c0035cb36d50c8314abe5&tags=cat%2C+cats&format=json&nojsoncallback=1&auth_token=72157680008829101-d2910c943569a852&api_sig=f542e9218b7ea68d1e326e39fb4dc513'
+
+// async function fetchCatImages() {
+//   let response = await fetch(flickrCatPhotosURL);
+//   let result = await response.json();
+//   return result;
+// };
+
+// const flickrCatImages = await fetchCatImages()
+//   .then(data => {
+//     return data.photos.photo;
+//   })
+//   .catch(err => console.err(err));
+
+// if (flickrCatImages.length > 0) {
+//   let randomCatImage = flickrCatImages[Math.floor(Math.random() * (flickrCatImages.length - 0) + 1)];
+//   coverElementHolder.style.backgroundImage = `url(${flickrPhotoBaseURL}${randomCatImage.owner}/${randomCatImage.id})`;
+// }
